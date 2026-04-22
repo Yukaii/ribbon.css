@@ -18,7 +18,7 @@ export const defaultGroups = [
       { kind: "large", label: "Paste", icon: "📋" },
       { kind: "small", label: "Cut", icon: "✂️" },
       { kind: "small", label: "Copy", icon: "📄" },
-      { kind: "small", label: "Format", icon: "🖌️" },
+      { kind: "small", label: "Format", icon: "🧹" },
     ],
   },
   {
@@ -29,7 +29,7 @@ export const defaultGroups = [
       { kind: "small", label: "B", icon: "B" },
       { kind: "small", label: "I", icon: "I" },
       { kind: "small", label: "U", icon: "U" },
-      { kind: "small", label: "Color", icon: "🅰️" },
+      { kind: "small", label: "Color", icon: "A" },
     ],
   },
   {
@@ -54,18 +54,38 @@ export const defaultGroups = [
     title: "Editing",
     items: [
       { kind: "large", label: "Find", icon: "🔎" },
-      { kind: "small", label: "Replace", icon: "♻️" },
-      { kind: "small", label: "Select", icon: "🖱️" },
+      { kind: "small", label: "Replace", icon: "ab" },
+      { kind: "small", label: "Select", icon: "⌖" },
     ],
   },
+];
+
+const panelTokens = [
+  ["Orb", ".r-orb"],
+  ["QAT", ".r-qat"],
+  ["Ribbon", ".r-ribbon"],
+  ["Group", ".r-group"],
+  ["Command", ".r-command"],
+  ["Surface", ".r-surface"],
+  ["Status Bar", ".r-status"],
+];
+
+const componentTargets = [
+  ["AppWindow", ".r-app"],
+  ["RibbonTabs", ".r-tabs"],
+  ["RibbonGroup", ".r-group"],
+  ["RibbonButton", ".r-btn"],
+  ["RibbonGallery", ".r-gallery"],
+  ["StatusBar", ".r-status"],
+  ["DocumentSurface", ".r-surface"],
 ];
 
 function RibbonItem({ item }) {
   if (item.kind === "large") {
     return (
       <button type="button" className="ribbon-command ribbon-command--large" aria-label={item.label}>
-        <span aria-hidden="true" style={{ fontSize: 26 }}>{item.icon}</span>
-        <span style={{ marginTop: 10 }}>{item.label}</span>
+        <span className="ribbon-command-icon ribbon-command-icon--large" aria-hidden="true">{item.icon}</span>
+        <span className="ribbon-command-label">{item.label}</span>
       </button>
     );
   }
@@ -74,7 +94,7 @@ function RibbonItem({ item }) {
     return (
       <div className="ribbon-field" aria-label={item.label}>
         <span>{item.label}</span>
-        <span aria-hidden="true" style={{ fontSize: 10 }}>▼</span>
+        <span aria-hidden="true" className="ribbon-caret">▼</span>
       </div>
     );
   }
@@ -82,16 +102,16 @@ function RibbonItem({ item }) {
   if (item.kind === "style") {
     return (
       <div className="ribbon-style" aria-label={item.label}>
-        <div style={{ fontSize: 15, fontWeight: 600 }}>AaBb</div>
-        <div style={{ marginTop: 4 }}>{item.label}</div>
+        <div className="ribbon-style-sample">Aa</div>
+        <div className="ribbon-style-label">{item.label}</div>
       </div>
     );
   }
 
   return (
     <button type="button" className="ribbon-command ribbon-command--small" aria-label={item.label}>
-      <span aria-hidden="true">{item.icon}</span>
-      <span>{item.label}</span>
+      <span className="ribbon-command-icon" aria-hidden="true">{item.icon}</span>
+      <span className="ribbon-command-label">{item.label}</span>
     </button>
   );
 }
@@ -103,6 +123,7 @@ export function RetroRibbon({
   title = "Retro Ribbon UI",
   quickAccessItems = ["💾", "↶", "↷"],
   statusBarItems = ["Ready", "Page 1 of 1", "English (Canada)"],
+  statusBarMeta = "Words: 245 (demo)",
 }) {
   const createStableKeys = (items, getBaseKey) => {
     const counts = new Map();
@@ -130,36 +151,33 @@ export function RetroRibbon({
   );
 
   const resolvedStatusBarItems = createStableKeys(
-    statusBarItems.map((item) =>
-      typeof item === "string"
-        ? { value: item }
-        : item
-    ),
+    statusBarItems.map((item) => (typeof item === "string" ? { value: item } : item)),
     (item) => item.id || item.value
   );
 
   return (
-    <div style={{ background: "var(--ribbon-bg)", padding: 24 }}>
+    <div className="ribbon-app-bg">
       <div className="ribbon-shell">
         <header className="ribbon-titlebar">
           <div className="ribbon-title-row">
-            <div style={{ alignItems: "flex-start", display: "flex", gap: 12 }}>
-              <div className="ribbon-orb" aria-label="Application Orb" />
-              <div>
+            <div className="ribbon-title-left">
+              <button type="button" className="ribbon-orb" aria-label="Application Orb" />
+              <div className="ribbon-qta-title-wrap">
                 <div className="ribbon-qta" aria-label="Quick access toolbar">
                   {resolvedQuickAccessItems.map((item) => (
                     <button key={item._key} type="button" className="ribbon-btn ribbon-btn--icon" aria-label={item.label}>
                       {item.icon}
                     </button>
                   ))}
+                  <button type="button" className="ribbon-btn ribbon-btn--icon" aria-label="Quick Access Toolbar options">▾</button>
                 </div>
-                <div style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>{title}</div>
+                <div className="ribbon-title-text">{title}</div>
               </div>
             </div>
             <div className="ribbon-win-controls" aria-label="Window controls">
-              {[["—", "Minimize"], ["▢", "Maximize"], ["✕", "Close"]].map(([icon, label]) => (
-                <button key={label} type="button" className="ribbon-btn ribbon-btn--window" aria-label={label}>
-                  {icon}
+              {["Minimize", "Maximize", "Close"].map((label) => (
+                <button key={label} type="button" className={`ribbon-btn ribbon-btn--window ${label === "Close" ? "is-close" : ""}`} aria-label={label}>
+                  {label === "Minimize" ? "—" : label === "Maximize" ? "▢" : "✕"}
                 </button>
               ))}
             </div>
@@ -167,13 +185,7 @@ export function RetroRibbon({
 
           <div className="ribbon-tabs" role="tablist" aria-label="Ribbon Tabs">
             {tabs.map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                className="ribbon-tab"
-                role="tab"
-                aria-selected={tab === activeTab}
-              >
+              <button key={tab} type="button" className="ribbon-tab" role="tab" aria-selected={tab === activeTab}>
                 {tab}
               </button>
             ))}
@@ -198,15 +210,63 @@ export function RetroRibbon({
           </div>
         </section>
 
-        <footer className="ribbon-statusbar" aria-label="Status bar">
+        <section className="ribbon-workspace" aria-label="Document workspace">
+          <div className="ribbon-ruler" aria-hidden="true" />
+          <div className="ribbon-workspace-main">
+            <article className="ribbon-document r-surface">
+              <h1>Component Library Reference Sheet</h1>
+              <p className="ribbon-lead">
+                This canvas showcases the building blocks of a retro ribbon-inspired UI library.
+              </p>
+              <h2>CSS Primitives</h2>
+              <div className="ribbon-chip-list">
+                {[".r-app", ".r-ribbon", ".r-group", ".r-btn", ".r-gallery", ".r-surface", ".r-status"].map((chip) => (
+                  <span key={chip} className="ribbon-chip">{chip}</span>
+                ))}
+              </div>
+              <h2>Interaction Notes</h2>
+              <ul>
+                <li>Hover states brighten with a soft white sheen.</li>
+                <li>Pressed states should feel slightly inset.</li>
+                <li>All interactive items should preserve keyboard access.</li>
+              </ul>
+            </article>
+
+            <aside className="ribbon-sidepane">
+              <div className="ribbon-pane-card">
+                <div className="ribbon-pane-title">Visual Tokens</div>
+                {panelTokens.map(([name, klass]) => (
+                  <div key={name} className="ribbon-pane-row">
+                    <span>{name}</span>
+                    <code>{klass}</code>
+                  </div>
+                ))}
+              </div>
+              <div className="ribbon-pane-card">
+                <div className="ribbon-pane-title">Components to Build</div>
+                {componentTargets.map(([name, klass]) => (
+                  <div key={name} className="ribbon-pane-row">
+                    <span>{name}</span>
+                    <code>{klass}</code>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <footer className="ribbon-statusbar r-status" aria-label="Status bar">
           <div className="ribbon-statusbar-left">
             {resolvedStatusBarItems.map((item) => (
               <span key={item._key}>{item.value}</span>
             ))}
           </div>
           <div className="ribbon-statusbar-right">
+            <span>{statusBarMeta}</span>
+            <button type="button" className="ribbon-status-btn" aria-label="Read mode">📖</button>
+            <button type="button" className="ribbon-status-btn" aria-label="Print layout">▤</button>
             <span aria-label="Zoom level">100%</span>
-            <span aria-label="View mode">◉</span>
+            <div className="ribbon-zoom" aria-hidden="true"><span /></div>
           </div>
         </footer>
       </div>
