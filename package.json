@@ -9,6 +9,6 @@
     "./ribbon.css": "./src/ribbon.css"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": "^18.0.0"
   }
 }

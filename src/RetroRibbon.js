@@ -102,7 +102,42 @@ export function RetroRibbon({
   activeTab = tabs[0],
   title = "Retro Ribbon UI",
   quickAccessItems = ["💾", "↶", "↷"],
+  statusBarItems = ["Ready", "Page 1 of 1", "English (Canada)"],
 }) {
+  const createStableKeys = (items, getBaseKey) => {
+    const counts = new Map();
+    return items.map((item) => {
+      const baseKey = getBaseKey(item);
+      const count = counts.get(baseKey) || 0;
+      counts.set(baseKey, count + 1);
+      return { ...item, _key: count ? `${baseKey}-${count}` : baseKey };
+    });
+  };
+
+  const quickAccessLabelMap = {
+    "💾": "Save",
+    "↶": "Undo",
+    "↷": "Redo",
+  };
+
+  const resolvedQuickAccessItems = createStableKeys(
+    quickAccessItems.map((item, index) =>
+      typeof item === "string"
+        ? { icon: item, label: quickAccessLabelMap[item] || `Quick action ${index + 1}` }
+        : item
+    ),
+    (item) => item.id || `${item.icon}-${item.label}`
+  );
+
+  const resolvedStatusBarItems = createStableKeys(
+    statusBarItems.map((item) =>
+      typeof item === "string"
+        ? { value: item }
+        : item
+    ),
+    (item) => item.id || item.value
+  );
+
   return (
     <div style={{ background: "var(--ribbon-bg)", padding: 24 }}>
       <div className="ribbon-shell">
@@ -112,9 +147,9 @@ export function RetroRibbon({
               <div className="ribbon-orb" aria-label="Application Orb" />
               <div>
                 <div className="ribbon-qta" aria-label="Quick access toolbar">
-                  {quickAccessItems.map((item) => (
-                    <button key={item} type="button" className="ribbon-btn ribbon-btn--icon" aria-label={item}>
-                      {item}
+                  {resolvedQuickAccessItems.map((item) => (
+                    <button key={item._key} type="button" className="ribbon-btn ribbon-btn--icon" aria-label={item.label}>
+                      {item.icon}
                     </button>
                   ))}
                 </div>
@@ -122,9 +157,9 @@ export function RetroRibbon({
               </div>
             </div>
             <div className="ribbon-win-controls" aria-label="Window controls">
-              {["—", "▢", "✕"].map((item) => (
-                <button key={item} type="button" className="ribbon-btn ribbon-btn--window" aria-label={item}>
-                  {item}
+              {[["—", "Minimize"], ["▢", "Maximize"], ["✕", "Close"]].map(([icon, label]) => (
+                <button key={label} type="button" className="ribbon-btn ribbon-btn--window" aria-label={label}>
+                  {icon}
                 </button>
               ))}
             </div>
@@ -151,8 +186,8 @@ export function RetroRibbon({
               <React.Fragment key={group.title}>
                 <div className="ribbon-group" role="group" aria-label={group.title}>
                   <div className="ribbon-commands">
-                    {group.items.map((item) => (
-                      <RibbonItem key={item.label} item={item} />
+                    {group.items.map((item, itemIndex) => (
+                      <RibbonItem key={`${itemIndex}-${item.label}`} item={item} />
                     ))}
                   </div>
                   <div className="ribbon-group-title">{group.title}</div>
@@ -165,13 +200,13 @@ export function RetroRibbon({
 
         <footer className="ribbon-statusbar" aria-label="Status bar">
           <div className="ribbon-statusbar-left">
-            <span>Ready</span>
-            <span>Page 1 of 1</span>
-            <span>English (Canada)</span>
+            {resolvedStatusBarItems.map((item) => (
+              <span key={item._key}>{item.value}</span>
+            ))}
           </div>
           <div className="ribbon-statusbar-right">
-            <span>100%</span>
-            <span>◉</span>
+            <span aria-label="Zoom level">100%</span>
+            <span aria-label="View mode">◉</span>
           </div>
         </footer>
       </div>

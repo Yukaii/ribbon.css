@@ -21,7 +21,7 @@ export default function App() {
 
 ## Exports
 
-- `RetroRibbon` (default export)
+- `RetroRibbon`
 - `defaultTabs`
 - `defaultGroups`
 - `src/ribbon.css`
