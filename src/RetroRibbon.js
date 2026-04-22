@@ -1,0 +1,182 @@
+import React from "react";
+import "./ribbon.css";
+
+export const defaultTabs = [
+  "Home",
+  "Insert",
+  "Page Layout",
+  "References",
+  "Mailings",
+  "Review",
+  "View",
+];
+
+export const defaultGroups = [
+  {
+    title: "Clipboard",
+    items: [
+      { kind: "large", label: "Paste", icon: "📋" },
+      { kind: "small", label: "Cut", icon: "✂️" },
+      { kind: "small", label: "Copy", icon: "📄" },
+      { kind: "small", label: "Format", icon: "🖌️" },
+    ],
+  },
+  {
+    title: "Font",
+    items: [
+      { kind: "field", label: "Calibri" },
+      { kind: "field", label: "11" },
+      { kind: "small", label: "B", icon: "B" },
+      { kind: "small", label: "I", icon: "I" },
+      { kind: "small", label: "U", icon: "U" },
+      { kind: "small", label: "Color", icon: "🅰️" },
+    ],
+  },
+  {
+    title: "Paragraph",
+    items: [
+      { kind: "small", label: "Bullets", icon: "•" },
+      { kind: "small", label: "Numbering", icon: "1." },
+      { kind: "small", label: "Align", icon: "≡" },
+      { kind: "small", label: "Indent", icon: "↦" },
+      { kind: "small", label: "Sort", icon: "⇅" },
+    ],
+  },
+  {
+    title: "Styles",
+    items: [
+      { kind: "style", label: "Normal" },
+      { kind: "style", label: "Heading 1" },
+      { kind: "style", label: "Heading 2" },
+    ],
+  },
+  {
+    title: "Editing",
+    items: [
+      { kind: "large", label: "Find", icon: "🔎" },
+      { kind: "small", label: "Replace", icon: "♻️" },
+      { kind: "small", label: "Select", icon: "🖱️" },
+    ],
+  },
+];
+
+function RibbonItem({ item }) {
+  if (item.kind === "large") {
+    return (
+      <button type="button" className="ribbon-command ribbon-command--large" aria-label={item.label}>
+        <span aria-hidden="true" style={{ fontSize: 26 }}>{item.icon}</span>
+        <span style={{ marginTop: 10 }}>{item.label}</span>
+      </button>
+    );
+  }
+
+  if (item.kind === "field") {
+    return (
+      <div className="ribbon-field" aria-label={item.label}>
+        <span>{item.label}</span>
+        <span aria-hidden="true" style={{ fontSize: 10 }}>▼</span>
+      </div>
+    );
+  }
+
+  if (item.kind === "style") {
+    return (
+      <div className="ribbon-style" aria-label={item.label}>
+        <div style={{ fontSize: 15, fontWeight: 600 }}>AaBb</div>
+        <div style={{ marginTop: 4 }}>{item.label}</div>
+      </div>
+    );
+  }
+
+  return (
+    <button type="button" className="ribbon-command ribbon-command--small" aria-label={item.label}>
+      <span aria-hidden="true">{item.icon}</span>
+      <span>{item.label}</span>
+    </button>
+  );
+}
+
+export function RetroRibbon({
+  tabs = defaultTabs,
+  groups = defaultGroups,
+  activeTab = tabs[0],
+  title = "Retro Ribbon UI",
+  quickAccessItems = ["💾", "↶", "↷"],
+}) {
+  return (
+    <div style={{ background: "var(--ribbon-bg)", padding: 24 }}>
+      <div className="ribbon-shell">
+        <header className="ribbon-titlebar">
+          <div className="ribbon-title-row">
+            <div style={{ alignItems: "flex-start", display: "flex", gap: 12 }}>
+              <div className="ribbon-orb" aria-label="Application Orb" />
+              <div>
+                <div className="ribbon-qta" aria-label="Quick access toolbar">
+                  {quickAccessItems.map((item) => (
+                    <button key={item} type="button" className="ribbon-btn ribbon-btn--icon" aria-label={item}>
+                      {item}
+                    </button>
+                  ))}
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>{title}</div>
+              </div>
+            </div>
+            <div className="ribbon-win-controls" aria-label="Window controls">
+              {["—", "▢", "✕"].map((item) => (
+                <button key={item} type="button" className="ribbon-btn ribbon-btn--window" aria-label={item}>
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="ribbon-tabs" role="tablist" aria-label="Ribbon Tabs">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                className="ribbon-tab"
+                role="tab"
+                aria-selected={tab === activeTab}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </header>
+
+        <section className="ribbon-panel" aria-label="Ribbon Commands">
+          <div className="ribbon-group-wrap">
+            {groups.map((group, index) => (
+              <React.Fragment key={group.title}>
+                <div className="ribbon-group" role="group" aria-label={group.title}>
+                  <div className="ribbon-commands">
+                    {group.items.map((item) => (
+                      <RibbonItem key={item.label} item={item} />
+                    ))}
+                  </div>
+                  <div className="ribbon-group-title">{group.title}</div>
+                </div>
+                {index < groups.length - 1 && <div className="ribbon-group-sep" aria-hidden="true" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        <footer className="ribbon-statusbar" aria-label="Status bar">
+          <div className="ribbon-statusbar-left">
+            <span>Ready</span>
+            <span>Page 1 of 1</span>
+            <span>English (Canada)</span>
+          </div>
+          <div className="ribbon-statusbar-right">
+            <span>100%</span>
+            <span>◉</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+export default RetroRibbon;
