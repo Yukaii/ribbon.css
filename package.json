@@ -1,0 +1,14 @@
+{
+  "name": "ribbon.css",
+  "version": "0.1.0",
+  "description": "Retro Office 2007 ribbon component styles for React",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./ribbon.css": "./src/ribbon.css"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}
