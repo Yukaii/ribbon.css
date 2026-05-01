@@ -1,2 +1,2 @@
-export { RetroRibbon, defaultTabs, defaultGroups } from "./RetroRibbon.js";
+export { RetroRibbon, defaultTabs, defaultGroups } from "./RetroRibbon.jsx";
 import "./ribbon.css";
