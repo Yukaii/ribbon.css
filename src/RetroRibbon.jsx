@@ -23,20 +23,18 @@ export const defaultGroups = [
   {
     title: "Font",
     items: [
-      { kind: "field", label: "Calibri" },
+      { kind: "field", label: "Segoe UI" },
       { kind: "field", label: "11" },
-      { kind: "small", label: "Grow Font", icon: "grow-font", showLabel: false },
-      { kind: "small", label: "Shrink Font", icon: "shrink-font", showLabel: false },
       { kind: "small", label: "Bold", icon: "bold", showLabel: false },
       { kind: "small", label: "Italic", icon: "italic", showLabel: false },
       { kind: "small", label: "Underline", icon: "underline", showLabel: false },
       { kind: "small", label: "Strikethrough", icon: "strikethrough", showLabel: false },
+      { kind: "small", label: "Text Color", icon: "font-color", showLabel: false },
+      { kind: "small", label: "Highlight", icon: "highlight", showLabel: false },
       { kind: "small", label: "Subscript", icon: "subscript", showLabel: false },
       { kind: "small", label: "Superscript", icon: "superscript", showLabel: false },
       { kind: "small", label: "Change Case", icon: "change-case", showLabel: false },
       { kind: "small", label: "Clear Formatting", icon: "clear-format", showLabel: false },
-      { kind: "small", label: "Highlight", icon: "highlight", showLabel: false },
-      { kind: "small", label: "Text Color", icon: "font-color", showLabel: false },
     ],
   },
   {
@@ -47,13 +45,13 @@ export const defaultGroups = [
       { kind: "small", label: "Multilevel List", icon: "multilevel", showLabel: false },
       { kind: "small", label: "Decrease Indent", icon: "decrease-indent", showLabel: false },
       { kind: "small", label: "Increase Indent", icon: "increase-indent", showLabel: false },
-      { kind: "small", label: "Sort", icon: "sort", showLabel: false },
-      { kind: "small", label: "Show Paragraph Marks", icon: "show-marks", showLabel: false },
       { kind: "small", label: "Align Left", icon: "align-left", showLabel: false },
       { kind: "small", label: "Center", icon: "align-center", showLabel: false },
       { kind: "small", label: "Align Right", icon: "align-right", showLabel: false },
       { kind: "small", label: "Justify", icon: "justify", showLabel: false },
       { kind: "small", label: "Line Spacing", icon: "line-spacing", showLabel: false },
+      { kind: "small", label: "Sort", icon: "sort", showLabel: false },
+      { kind: "small", label: "Show Paragraph Marks", icon: "show-marks", showLabel: false },
       { kind: "small", label: "Shading", icon: "shading", showLabel: false },
       { kind: "small", label: "Borders", icon: "borders", showLabel: false },
     ],
@@ -61,9 +59,9 @@ export const defaultGroups = [
   {
     title: "Styles",
     items: [
-      { kind: "style", label: "Normal", preview: "AaBbCcDd" },
-      { kind: "style", label: "No Spacing", preview: "AaBbCcDd" },
-      { kind: "style", label: "Heading 1", preview: "AaBbCcDd" },
+      { kind: "style", label: "Normal", preview: "Aa" },
+      { kind: "style", label: "Heading 1", preview: "Aa" },
+      { kind: "style", label: "Heading 2", preview: "Aa" },
       { kind: "small", label: "Change Styles", icon: "change-styles" },
       { kind: "small", label: "Styles Pane", icon: "styles-pane" },
     ],
@@ -78,13 +76,13 @@ export const defaultGroups = [
   },
 ];
 
-const panelTokens = [
+  const panelTokens = [
   ["Orb", ".r-orb"],
-  ["Quick Access", ".r-qat"],
-  ["Ribbon Body", ".r-ribbon"],
-  ["Group Shell", ".r-group"],
+  ["QAT", ".r-qat"],
+  ["Ribbon", ".r-ribbon"],
+  ["Group", ".r-group"],
   ["Command", ".r-command"],
-  ["Document", ".r-surface"],
+  ["Surface", ".r-surface"],
   ["Status Bar", ".r-status"],
 ];
 
@@ -124,22 +122,22 @@ function OfficeGlyph({ name, className = "" }) {
   const glyphs = {
     save: (
       <>
-        <path d="M3 3h12l3 3v12H3z" fill="#4d87d9" stroke="#275ea8" strokeWidth="1" />
-        <path d="M6 3h7v4H6z" fill="#dcecff" />
-        <path d="M7 11h7v5H7z" fill="#f7fbff" stroke="#7fa6d9" strokeWidth="1" />
+        <rect x="3" y="3" width="14" height="14" rx="1.5" fill="#5a9ae8" stroke="#1c4f8c" strokeWidth="1.2" />
+        <rect x="6" y="3" width="8" height="5" rx="1" fill="#e8f1fc" stroke="#3a7bc8" strokeWidth="1" />
+        <rect x="6" y="10" width="8" height="5" rx="1" fill="#f7fbff" stroke="#5a9ae8" strokeWidth="1" />
       </>
     ),
     undo: (
-      <path d="M8 5H5L7.8 2.3" fill="none" stroke="#2d63aa" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 6c0-3 2.5-5 5.5-5s5.5 2.5 5 5.5M5 6l2.5-2.5M5 6l2.5 2.5" fill="none" stroke="#1c4f8c" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     ),
     redo: (
-      <path d="M12 5h3L12.2 2.3" fill="none" stroke="#2d63aa" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15 6c0-3-2.5-5-5.5-5s-5.5 2.5-5 5.5M15 6l-2.5-2.5M15 6l-2.5 2.5" fill="none" stroke="#1c4f8c" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     ),
     paste: (
       <>
-        <rect x="4" y="4" width="12" height="13" rx="1.5" fill="#f9cd6d" stroke="#b67d1a" />
-        <rect x="7" y="2" width="6" height="4" rx="1" fill="#f7f3da" stroke="#b29548" />
-        <path d="M7 9h6M7 12h5" stroke="#855a13" strokeWidth="1.2" />
+        <rect x="3.5" y="3.5" width="13" height="14" rx="2" fill="#f5c34e" stroke="#8a5e0a" strokeWidth="1.3" />
+        <rect x="6.5" y="1.5" width="7" height="5" rx="1.2" fill="#fff" stroke="#b0862a" strokeWidth="1.1" />
+        <path d="M6.5 9.5h7M6.5 12.5h6" stroke="#5c4006" strokeWidth="1.4" strokeLinecap="round" />
       </>
     ),
     cut: (
@@ -157,9 +155,9 @@ function OfficeGlyph({ name, className = "" }) {
     ),
     format: (
       <>
-        <path d="M5 5h8" stroke="#194f93" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M7.5 5v9" stroke="#194f93" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M12 9c1.8 0 3 1 3 2.3 0 1.1-.6 1.8-1.7 3.2-.6.7-.9 1.3-.9 2" fill="none" stroke="#f5a623" strokeWidth="1.7" strokeLinecap="round" />
+        <path d="M5 5h8" stroke="#194f93" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M7.5 5v9" stroke="#194f93" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M12 8.5c2 0 3.2 1.2 3.2 2.8 0 1.2-.7 2-1.8 3.5-.6.8-.9 1.4-.9 2.2" fill="none" stroke="#d4880a" strokeWidth="1.8" strokeLinecap="round" />
       </>
     ),
     growFont: (
@@ -301,19 +299,19 @@ function OfficeGlyph({ name, className = "" }) {
     ),
     find: (
       <>
-        <circle cx="8.2" cy="8.2" r="3.6" fill="#f6fbff" stroke="#5d86b8" strokeWidth="1.3" />
-        <path d="m10.9 10.9 3 3" stroke="#c96534" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="8.5" cy="8.5" r="4.2" fill="#d4e7f9" stroke="#1c4f8c" strokeWidth="1.5" />
+        <path d="m11.5 11.5 3.5 3.5" stroke="#c96534" strokeWidth="2.2" strokeLinecap="round" />
       </>
     ),
     replace: (
       <>
-        <path d="M5 7h6M5 11h6" stroke="#1c579c" strokeWidth="1.2" strokeLinecap="round" />
-        <path d="M12 6.2h2.2m0 0L13 5m1.2 1.2L13 7.4M14.2 11.8H12m0 0 1.2 1.2M12 11.8 13 10.6" fill="none" stroke="#c96534" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M5 7h6M5 11h6" stroke="#1c579c" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M12.5 5.5h2.5m0 0L13.5 4m1.5 1.5L13.5 7M15 11.5h-2.5m0 0 1.5 1.5M15 11.5 13.5 10" fill="none" stroke="#c96534" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
       </>
     ),
     select: (
       <>
-        <path d="M6 4.5v8.8l2.1-2.1 1.3 3 1.7-.8-1.4-3.1H13z" fill="#f8fbff" stroke="#5d86b8" strokeWidth="1.1" strokeLinejoin="round" />
+        <path d="M5.5 4v9.5l2.3-2.3 1.5 3.2 1.8-.9-1.5-3.3h3.4z" fill="#e8f1fc" stroke="#1c4f8c" strokeWidth="1.3" strokeLinejoin="round" />
       </>
     ),
     bookView: (
@@ -417,6 +415,8 @@ function renderGroupBody(group) {
   if (groupSlug === "font") {
     const fields = group.items.filter((item) => item.kind === "field");
     const commands = group.items.filter((item) => item.kind === "small");
+    const row1 = commands.slice(0, 5);
+    const row2 = commands.slice(5);
     return (
       <div className="ribbon-layout ribbon-layout--font">
         <div className="ribbon-font-fields">
@@ -424,8 +424,13 @@ function renderGroupBody(group) {
             <RibbonItem key={item.label} item={item} />
           ))}
         </div>
-        <div className="ribbon-font-grid">
-          {commands.map((item) => (
+        <div className="ribbon-font-row">
+          {row1.map((item) => (
+            <RibbonItem key={item.label} item={item} />
+          ))}
+        </div>
+        <div className="ribbon-font-row">
+          {row2.map((item) => (
             <RibbonItem key={item.label} item={item} />
           ))}
         </div>
@@ -434,11 +439,26 @@ function renderGroupBody(group) {
   }
 
   if (groupSlug === "paragraph") {
+    const row1 = group.items.slice(0, 5);
+    const row2 = group.items.slice(5, 10);
+    const row3 = group.items.slice(10);
     return (
       <div className="ribbon-layout ribbon-layout--paragraph">
-        {group.items.map((item) => (
-          <RibbonItem key={item.label} item={item} />
-        ))}
+        <div className="ribbon-para-row">
+          {row1.map((item) => (
+            <RibbonItem key={item.label} item={item} />
+          ))}
+        </div>
+        <div className="ribbon-para-row">
+          {row2.map((item) => (
+            <RibbonItem key={item.label} item={item} />
+          ))}
+        </div>
+        <div className="ribbon-para-row ribbon-para-row--last">
+          {row3.map((item) => (
+            <RibbonItem key={item.label} item={item} />
+          ))}
+        </div>
       </div>
     );
   }
@@ -448,10 +468,15 @@ function renderGroupBody(group) {
     const actions = group.items.filter((item) => item.kind === "small");
     return (
       <div className="ribbon-layout ribbon-layout--styles">
-        <div className="ribbon-style-gallery">
-          {gallery.map((item) => (
-            <RibbonItem key={item.label} item={item} />
-          ))}
+        <div className="ribbon-style-gallery-wrap">
+          <div className="ribbon-style-gallery">
+            {gallery.map((item) => (
+              <RibbonItem key={item.label} item={item} />
+            ))}
+          </div>
+          <button type="button" className="ribbon-gallery-more" aria-label="More styles">
+            <RibbonCaret />
+          </button>
         </div>
         <div className="ribbon-style-actions">
           {actions.map((item) => (
@@ -489,7 +514,7 @@ export function RetroRibbon({
   activeTab = tabs[0],
   title = "Retro Ribbon UI Reference Canvas",
   quickAccessItems = ["save", "undo", "redo"],
-  statusBarItems = ["Page 1 of 1", "Words: 245", "English (Canada)"],
+  statusBarItems = ["Ready", "Page 1 of 1", "English (Canada)", "Words: 245"],
   statusBarMeta = "100%",
 }) {
   const resolvedQuickAccessItems = createStableKeys(
@@ -509,21 +534,19 @@ export function RetroRibbon({
           <div className="ribbon-title-row">
             <div className="ribbon-title-left">
               <button type="button" className="ribbon-orb r-orb" aria-label="Application menu">
-                <span className="ribbon-orb-mark">O</span>
+                <span className="ribbon-orb-mark" />
               </button>
-              <div className="ribbon-title-stack">
-                <div className="ribbon-qta r-qat" aria-label="Quick access toolbar">
-                  {resolvedQuickAccessItems.map((item) => (
-                    <button key={item._key} type="button" className="ribbon-btn ribbon-btn--icon" aria-label={item.label}>
-                      <OfficeGlyph name={item.icon} />
-                    </button>
-                  ))}
-                  <button type="button" className="ribbon-btn ribbon-btn--icon" aria-label="Quick access options">
-                    <RibbonCaret />
+              <div className="ribbon-qta r-qat" aria-label="Quick access toolbar">
+                {resolvedQuickAccessItems.map((item) => (
+                  <button key={item._key} type="button" className="ribbon-btn ribbon-btn--icon" aria-label={item.label}>
+                    <OfficeGlyph name={item.icon} />
                   </button>
-                </div>
-                <div className="ribbon-title-text">{title}</div>
+                ))}
+                <button type="button" className="ribbon-btn ribbon-btn--icon" aria-label="Quick access options">
+                  <RibbonCaret />
+                </button>
               </div>
+              <div className="ribbon-title-text">{title}</div>
             </div>
             <div className="ribbon-win-controls" aria-label="Window controls">
               <button type="button" className="ribbon-btn ribbon-btn--window" aria-label="Minimize">
@@ -540,7 +563,7 @@ export function RetroRibbon({
 
           <div className="ribbon-tabs r-tabs" role="tablist" aria-label="Ribbon tabs">
             {tabs.map((tab) => (
-              <button key={tab} type="button" className="ribbon-tab" role="tab" aria-selected={tab === activeTab}>
+              <button key={tab} type="button" className={`ribbon-tab ${tab === activeTab ? "is-active" : ""}`} role="tab" aria-selected={tab === activeTab}>
                 {tab}
               </button>
             ))}
@@ -563,8 +586,9 @@ export function RetroRibbon({
 
         <section className="ribbon-workspace" aria-label="Document workspace">
           <div className="ribbon-ruler ribbon-ruler--top" aria-hidden="true">
+            <span className="ribbon-ruler-marker" />
             {Array.from({ length: 25 }, (_, index) => (
-              <span key={index} className={index % 4 === 0 ? "is-major" : ""}>
+              <span key={`top-${index}`} className={index % 4 === 0 ? "is-major" : ""}>
                 {index > 0 && index < 25 && index % 4 === 0 ? <em>{index / 4}</em> : null}
               </span>
             ))}
@@ -583,7 +607,7 @@ export function RetroRibbon({
                   <h1>Component Library Reference Sheet</h1>
                   <div className="ribbon-document-block">
                     <div className="ribbon-section-heading">
-                      <span className="ribbon-section-icon">i</span>
+                      <span className="ribbon-section-icon ribbon-section-icon--doc" />
                       <h2>About</h2>
                     </div>
                     <p className="ribbon-lead">
@@ -596,7 +620,7 @@ export function RetroRibbon({
 
                   <div className="ribbon-document-block">
                     <div className="ribbon-section-heading">
-                      <span className="ribbon-section-icon">g</span>
+                      <span className="ribbon-section-icon ribbon-section-icon--gear" />
                       <h2>CSS Primitives</h2>
                     </div>
                     <p className="ribbon-lead">
@@ -611,7 +635,7 @@ export function RetroRibbon({
 
                   <div className="ribbon-document-block">
                     <div className="ribbon-section-heading">
-                      <span className="ribbon-section-icon">z</span>
+                      <span className="ribbon-section-icon ribbon-section-icon--bolt" />
                       <h2>Interaction Notes</h2>
                     </div>
                     <ul>
@@ -623,7 +647,7 @@ export function RetroRibbon({
 
                   <div className="ribbon-document-block">
                     <div className="ribbon-section-heading">
-                      <span className="ribbon-section-icon">t</span>
+                      <span className="ribbon-section-icon ribbon-section-icon--tag" />
                       <h2>Component Naming</h2>
                     </div>
                     <p className="ribbon-lead">
@@ -648,8 +672,8 @@ export function RetroRibbon({
                 </div>
                 {panelTokens.map(([name, klass]) => (
                   <div key={name} className="ribbon-pane-row">
-                    <span className="ribbon-pane-preview" aria-hidden="true" />
-                    <span>{name}</span>
+                    <span className={`ribbon-pane-preview ribbon-pane-preview--${slugify(klass.replace(".", ""))}`} aria-hidden="true" />
+                    <span className="ribbon-pane-label">{name}</span>
                     <code>{klass}</code>
                   </div>
                 ))}
@@ -665,7 +689,7 @@ export function RetroRibbon({
                 {componentTargets.map(([name, klass]) => (
                   <div key={name} className="ribbon-pane-row">
                     <span className="ribbon-pane-cube" aria-hidden="true" />
-                    <span>{name}</span>
+                    <span className="ribbon-pane-label">{name}</span>
                     <code>{klass}</code>
                   </div>
                 ))}
@@ -676,22 +700,23 @@ export function RetroRibbon({
 
         <footer className="ribbon-statusbar r-status" aria-label="Status bar">
           <div className="ribbon-statusbar-left">
-            <span>Ready</span>
             {resolvedStatusBarItems.map((item) => (
-              <span key={item._key}>{item.value}</span>
+              <span key={item._key} className="ribbon-statusbar-item">{item.value}</span>
             ))}
           </div>
           <div className="ribbon-statusbar-right">
+            <button type="button" className="ribbon-status-btn is-active" aria-label="Print layout">
+              <OfficeGlyph name="print-view" />
+            </button>
             <button type="button" className="ribbon-status-btn" aria-label="Read mode">
               <OfficeGlyph name="book-view" />
-            </button>
-            <button type="button" className="ribbon-status-btn" aria-label="Print layout">
-              <OfficeGlyph name="print-view" />
             </button>
             <button type="button" className="ribbon-status-btn" aria-label="Web layout">
               <OfficeGlyph name="web-view" />
             </button>
+            <button type="button" className="ribbon-status-btn ribbon-status-btn--zoom" aria-label="Zoom out">-</button>
             <span className="ribbon-statusbar-zoom-label">{statusBarMeta}</span>
+            <button type="button" className="ribbon-status-btn ribbon-status-btn--zoom" aria-label="Zoom in">+</button>
             <div className="ribbon-zoom" aria-hidden="true">
               <span />
             </div>
